@@ -397,7 +397,7 @@ do
 	do -- Set Pauses
 		misc:AddInput("Pauses",{Text="Pauses",Default="0",Numeric=true,Placeholder="No. of pauses",Tooltip="No. of pauses"})
 		misc:AddButton("Set Pauses",function()
-			debug.setupvalue(gameScriptR.PauseGame,9,Options.Pauses.Value)
+			debug.setupvalue(gameScriptR.PauseGame,9,tonumber(Options.Pauses.Value))
 		end)
 	end
 	do -- Show Staff
