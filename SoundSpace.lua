@@ -136,21 +136,21 @@ do
 			end
 		end
 		runS.RenderStepped:Connect(function(delta)
-			if not renv._G.IsRunning then return end
-			if Toggles.Replay.Value then
+			if renv._G.IsRunning and Toggles.Replay.Value then
 				if not isReplay then
 					isReplay = true
 					isRecording = Options.ReplayMode.Value == "Record"
+					currentFrame = 1
+					replayTime = 0
+					replayTimeOffset = 0
 					if isRecording then
 						currentReplay = {}
 					elseif Options.ReplaySelect.Value ~= "None" then
 						currentReplay = replayList[Options.ReplaySelect.Value]
 					end
-					currentFrame = 1
-					replayTime = 0
 				end
 				local musicTime = music.TimePosition - (debug.getupvalue(UpdateCubes,3)+55)/1000
-				if replayTime == musicTime then
+				if (replayTime-replayTimeOffset) == musicTime then
 					replayTimeOffset += delta
 				end
 				replayTime = musicTime + replayTimeOffset
