@@ -241,6 +241,7 @@ do
 			"Linear",
 			"Half-Circle",
 			"Circle"
+			"EaseOutBack"
 		}})
 		dancer:AddSlider("DanceRadius",{Text="Radius Multiplier",Default=1,Min=0.1,Max=2,Rounding=1})
 		dancer:AddSlider("DanceCrosses",{Text="Crossovers",Default=0,Min=0,Max=5,Rounding=0})
@@ -288,6 +289,19 @@ do
 		end
 		local function circle(startPos,stopPos,diff)
 			return halfcircle(startPos,stopPos,diff*3*(Options.DanceCrosses.Value+1),1)
+		end
+		local function EaseOutBack(startPos,stopPos,diff)
+			local function inOutBack(t, b, c, d, s)
+				if not s then s = 1.70158 end
+				s = s * 1.525
+				t = t / d * 2
+				if t < 1 then
+				  return c / 2 * (t * t * ((s + 1) * t - s)) + b
+				else
+				  t = t - 2
+				  return c / 2 * (t * t * ((s + 1) * t + s) + 2) + b
+				end
+			  end
 		end
 		local trailDelay = 0
 		runS.RenderStepped:Connect(function(delta)
